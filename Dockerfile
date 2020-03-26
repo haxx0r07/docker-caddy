@@ -1,13 +1,23 @@
-FROM alpine:3.5
+FROM alpine:3.11
 LABEL maintainer "Carl Mercier <foss@carlmercier.com>"
-LABEL caddy_version="0.10.10" architecture="amd64"
+LABEL caddy_version="1.0.4" architecture="amd64"
 
-ARG plugins=dyndns,http.authz,http.cache,http.cgi,http.cors,http.expires,http.filemanager,http.filter,http.forwardproxy,http.git,http.hugo,http.ipfilter,http.jekyll,http.jwt,http.locale,http.login,http.nobots,http.proxyprotocol,http.ratelimit,http.realip,http.reauth,http.upload
-ARG dns=tls.dns.cloudflare,tls.dns.namecheap,tls.dns.rfc2136
+# Get the list with:
+#   curl https://caddyserver.com/v1/api/download-page | jq '.plugins|map(.Name)'
+ARG plugins=http.authz,http.awses,http.awslambda,http.cache,http.cgi,http.cors,http.datadog,http.expires,http.filter,http.forwardproxy,http.geoip,http.git,http.gopkg,http.grpc,http.ipfilter,http.jwt,http.locale,http.login,http.mailout,http.minify,http.nobots,http.permission,http.prometheus,http.proxyprotocol,http.pubsub,http.ratelimit,http.realip,http.reauth,http.recaptcha,http.restic,http.s3browser,http.supervisor,http.torproxy,http.webdav
+ARG dns=tls.dns.auroradns,tls.dns.azure,tls.dns.cloudflare,tls.dns.cloudxns,tls.dns.digitalocean,tls.dns.dnsimple,tls.dns.dnsmadeeasy,tls.dns.dnspod,tls.dns.duckdns,tls.dns.dyn,tls.dns.exoscale,tls.dns.gandi,tls.dns.gandiv5,tls.dns.godaddy,tls.dns.googlecloud,tls.dns.lightsail,tls.dns.linode,tls.dns.namecheap,tls.dns.namedotcom,tls.dns.namesilo,tls.dns.ns1,tls.dns.otc,tls.dns.ovh,tls.dns.powerdns,tls.dns.rackspace,tls.dns.rfc2136,tls.dns.route53,tls.dns.vultr
+ARG others=dyndns,docker,dns,net,supervisor,consul,redis,hook.service
 
-RUN apk add --no-cache openssh-client git tar curl ca-certificates bash && update-ca-certificates
+RUN apk add --no-cache \
+        bash \
+        ca-certificates \
+        curl \
+        git \
+        openssh-client \
+        tar \
+    && update-ca-certificates
 
-RUN curl --silent https://getcaddy.com | /bin/bash -s personal $plugins,$dns
+RUN curl --silent https://getcaddy.com | /bin/bash -s personal $plugins,$dns,$others
 
 RUN mkdir -p /opt/assets
 
