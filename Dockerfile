@@ -18,7 +18,8 @@ RUN apk add --no-cache \
         tar \
     && update-ca-certificates
 
-RUN curl --silent https://getcaddy.com | /bin/bash -s personal $plugins,$dns,$others
+# The subshell is to avoid double, leading, or following commas which cause a the download to fail
+RUN curl --silent https://getcaddy.com | /bin/bash -s personal $(echo $plugins,$dns,$others | sed 's/,,/,/g; s/^,//g; s/,$//g')
 
 RUN mkdir -p /opt/assets
 
