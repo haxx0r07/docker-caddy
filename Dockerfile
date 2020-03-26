@@ -13,6 +13,7 @@ RUN apk add --no-cache \
         ca-certificates \
         curl \
         git \
+        gnupg \
         openssh-client \
         tar \
     && update-ca-certificates
