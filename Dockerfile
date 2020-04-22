@@ -6,7 +6,7 @@ LABEL caddy_version="1.0.4" architecture="amd64"
 #   curl https://caddyserver.com/v1/api/download-page | jq '.plugins|map(.Name)'
 ARG plugins=http.authz,http.awses,http.awslambda,http.cache,http.cgi,http.cors,http.datadog,http.expires,http.filter,http.forwardproxy,http.geoip,http.git,http.gopkg,http.grpc,http.ipfilter,http.jwt,http.locale,http.login,http.mailout,http.minify,http.nobots,http.permission,http.prometheus,http.proxyprotocol,http.pubsub,http.ratelimit,http.realip,http.reauth,http.recaptcha,http.restic,http.s3browser,http.supervisor,http.torproxy,http.webdav
 ARG dns=tls.dns.auroradns,tls.dns.azure,tls.dns.cloudflare,tls.dns.cloudxns,tls.dns.digitalocean,tls.dns.dnsimple,tls.dns.dnsmadeeasy,tls.dns.dnspod,tls.dns.duckdns,tls.dns.dyn,tls.dns.exoscale,tls.dns.gandi,tls.dns.gandiv5,tls.dns.godaddy,tls.dns.googlecloud,tls.dns.lightsail,tls.dns.linode,tls.dns.namecheap,tls.dns.namedotcom,tls.dns.namesilo,tls.dns.ns1,tls.dns.otc,tls.dns.ovh,tls.dns.powerdns,tls.dns.rackspace,tls.dns.rfc2136,tls.dns.route53,tls.dns.vultr
-ARG others=dyndns,docker,net,supervisor,consul,redis,hook.service
+ARG others=
 
 RUN apk add --no-cache \
         bash \
